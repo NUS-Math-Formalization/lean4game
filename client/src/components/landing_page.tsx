@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import '../css/landing_page.css'
-import bgImage from '../assets/bg.jpg'
+import bgImage from '../assets/bg1.jpg'
 
 import Markdown from './markdown';
 import {PrivacyPolicyPopup} from './popup/privacy_policy'
@@ -98,7 +98,7 @@ function LandingPage() {
   const { t, i18n } = useTranslation()
 
   // Load the namespaces of all games
-  // TODO: should `allGames` contain game-ids starting with `g/`?
+  // TODO: should `allGames` contain game-ids starting whttps://leanprover-community.github.io/index.htmlith `g/`?
   i18next.loadNamespaces(lean4gameConfig.allGames.map(id => `g/${id}`))
 
   let allTiles = lean4gameConfig.allGames.map((gameId) => {
@@ -118,100 +118,130 @@ function LandingPage() {
   })
 
   return <div className="landing-page">
-    <header style={{backgroundImage: `url(${bgImage})`}}>
+    <header>
       <nav className="landing-page-nav">
-        <GithubIcon url="https://github.com/leanprover-community/lean4game"/>
-        <MenuButton navOpen={navOpen} setNavOpen={setNavOpen}/>
+        <GithubIcon url="https://github.com/NUS-Math-Formalization"/>
+        {/*<MenuButton navOpen={navOpen} setNavOpen={setNavOpen}/>
         <div className={'menu dropdown' + (navOpen ? '' : ' hidden')}>
             <ImpressumButton setNavOpen={setNavOpen} toggleImpressum={toggleImpressum} isDropdown={true} />
             <PreferencesButton setNavOpen={setNavOpen} togglePreferencesPopup={togglePreferencesPopup}/>
-        </div>
+        </div>*/}
       </nav>
       <div id="main-title">
-        <h1>{t("Lean Game Server")}</h1>
-        <p>
-          <Trans>
-            A repository of learning games for the
-            proof assistant <a target="_blank" href="https://leanprover-community.github.io/">Lean</a> <i>(Lean 4)</i> and
-            its mathematical library <a target="_blank" href="https://github.com/leanprover-community/mathlib4">mathlib</a>
-          </Trans>
-        </p>
+        <h1>{t("NUS Math Formalization")}</h1>
+        <h2>{t("Lean Game Server")}</h2>
       </div>
     </header>
-    <div className="game-list">
-      {allTiles.filter(x => x != null).length == 0 ?
-        <p>
+    <section>
+      <h2>{t("Games")}</h2>
+      <div className="game-list">
+        {allTiles.filter(x => x != null).length == 0 ?
           <Trans>
-            No Games loaded. Use <a>http://localhost:3000/#/g/local/FOLDER</a> to open a
-            game directly from a local folder.
+            <p>
+              No Games loaded. Use <a>http://localhost:3000/#/g/local/FOLDER</a> to open a
+              game directly from a local folder.
+            </p>
           </Trans>
-        </p>
-        : lean4gameConfig.allGames.map((id, i) => (
-          <Tile
-            key={id}
-            gameId={`g/${id}`}
-            data={allTiles[i]}
-          />
-        ))
-      }
-    </div>
+          : lean4gameConfig.allGames.map((id, i) => (
+            <Tile
+              key={id}
+              gameId={`g/${id}`}
+              data={allTiles[i]}
+            />
+          ))
+        }
+      </div>
+    </section>
+    <section>
+      <h2>{t("Repos")}</h2>
+    </section>
     <section>
       <div className="wrapper">
-        <h2>{t("Development notes")}</h2>
+        <h2>{t("Introduction to Lean 4")}</h2>
         <Trans>
           <p>
-            As this server runs lean on our university machines, it has a limited capacity.
-            Our current estimate is about 70 simultaneous games.
-            We hope to address and test this limitation better in the future.
+            <a href="https://leanprover-community.github.io/index.html">Lean 4</a> is an interactive
+            theorem prover and functional programming language, with a dependent type theory based
+            on the calculus of constructions. For our purposes, it can be used to verify
+            mathematical proofs, providing instant feedback to the user.
+            In the process of formalization, Lean is able to suggest tactics to complete the proof,
+            or even finish the proof itself in certain cases.
           </p>
           <p>
-            Most aspects of the games and the infrastructure are still in development. Feel free to
-            file a <a target="_blank" href="https://github.com/leanprover-community/lean4game/issues">GitHub Issue</a> about
-            any problems you experience!
+            Within Lean 4, mathlib4 is a community-run library that provides a huge collection of
+            theorems and proofs from all over mathematics, as well as the programming infrastructure
+            to create new definitions and theorems, or to develop proof tactics. The games and
+            repos in this server rely on mathlib4 to function.
           </p>
         </Trans>
       </div>
     </section>
     <section>
       <div className="wrapper">
-        <h2>{t("Adding new games")}</h2>
+        <h2>{t("The Team")}</h2>
         <Trans>
           <p>
-            If you are considering writing your own game, you should use
-            the <a target="_blank" href="https://github.com/hhu-adam/GameSkeleton">GameSkeleton Github Repo</a> as
-            a template and read <a target="_blank" href="https://github.com/leanprover-community/lean4game/">How to Create a Game</a>.
+            <b>Person 1's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
           <p>
-            You can directly load your games into the server and play it using
-            the correct URL. The <a target="_blank" href="https://github.com/leanprover-community/lean4game/">instructions above</a> also
-            explain the details for how to load your game to the server.
-
-            We'd like to encourage you to contact us if you have any questions.
+            <b>Person 2's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
           <p>
-            Featured games on this page are added manually.
-            Please get in contact and we'll happily add yours.
+            <b>Person 3's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            <b>Person 4's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            <b>Person 5's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            <b>Person 6's name</b> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
         </Trans>
       </div>
     </section>
     <section>
       <div className="wrapper">
-        <h2>{t("Funding")}</h2>
+        <h2>{t("Other Resources")}</h2>
         <p>
           <Trans>
-            This server has been developed as part of the
-            project <a target="_blank" href="https://hhu-adam.github.io">ADAM : Anticipating the Digital Age of Mathematics</a> at
-            Heinrich-Heine-Universität in Düsseldorf.
+            If you would like to explore Lean more, you can try these out:
+            <ul>
+              <li> <a href="https://adam.math.hhu.de/#/">Lean Game Server</a>,
+              from which this website was derived from.</li>
+              <li><a href="https://leanprover-community.github.io/mathematics_in_lean/">Mathematics in Lean</a>,
+              a book (in html format) that gives a nice introduction to formalizing basic
+              mathematics using Lean 4 and mathlib4.</li>
+            </ul>
           </Trans>
         </p>
+      </div>
+    </section>
+    <section>
+      <div className="wrapper">
+        <h2>Contact us!</h2>
+        <p>Any feedback? You can tell us how you feel using the anonymous Google form here.</p>
       </div>
     </section>
     <footer>
-      {/* Do not translate "Impressum", it's needed for German GDPR */}
+    {/*
       <a className="link" onClick={openImpressum}>Impressum</a>
       {impressumPopup? <PrivacyPolicyPopup handleClose={closeImpressum} />: null}
       {preferencesPopup ? <PreferencesPopup handleClose={closePreferencesPopup} /> : null}
+    */ }
     </footer>
   </div>
 

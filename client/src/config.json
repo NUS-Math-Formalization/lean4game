@@ -1,9 +1,6 @@
 {
   "allGames": [
-    "leanprover-community/nng4",
-    "hhu-adam/robo",
-    "djvelleman/stg4",
-    "trequetrum/lean4game-logic"
+    "NUS-Math-Formalization/CalculusSkeleton"
   ],
 
   "languages": [
