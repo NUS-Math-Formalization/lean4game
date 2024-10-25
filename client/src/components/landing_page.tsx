@@ -95,6 +95,9 @@ function LandingPage() {
   const closePreferencesPopup = () => setPreferencesPopup(false);
   const togglePreferencesPopup = () => setPreferencesPopup(!preferencesPopup);
 
+  const [usageCPU, setUsageCPU] = React.useState<number>()
+  const [usageMem, setUsageMem] = React.useState<number>()
+
   const { t, i18n } = useTranslation()
 
   // Load the namespaces of all games
@@ -116,6 +119,29 @@ function LandingPage() {
 
     return q.data?.tile
   })
+
+  /** Parse `games/stats.csv` if present and display server capacity. */
+  React.useEffect(() => {
+    fetch(`${window.location.origin}/data/stats`)
+    .then(response => {if (response.ok) {
+      return response.text() } else {throw ""}})
+    .then(data => {
+      // Parse the CSV content
+      const lines = data.split('\n');
+      const [header, line2] = lines;
+      if (!(header.replace(' ', '').startsWith("CPU,MEM"))) {
+        console.info("Not displaying server stats: received unexpected: ", header)
+      }
+      if (line2) {
+        let values = line2.split(',')
+        setUsageCPU(100 * Number(values[0]));
+        setUsageMem(100 * Number(values[1]));
+      }
+    }).catch(err => {
+      console.info('server stats unavailable')
+      console.debug(err)
+    })
+  }, [])
 
   return <div className="landing-page">
     <header>
@@ -142,19 +168,28 @@ function LandingPage() {
               game directly from a local folder.
             </p>
           </Trans>
-          : lean4gameConfig.allGames.map((id, i) => (
-            <Tile
-              key={id}
-              gameId={`g/${id}`}
-              data={allTiles[i]}
-            />
-          ))
-        }
-      </div>
-    </section>
-    <section>
-      <h2>{t("Repos")}</h2>
-    </section>
+        </p>
+        : lean4gameConfig.allGames.map((id, i) => (
+          <Tile
+            key={id}
+            gameId={`g/${id}`}
+            data={allTiles[i]}
+          />
+        ))
+      }
+    </div>
+    { // show server capacity from `games/stats.csv` if present
+      (usageMem >= 0 || usageCPU >= 0 ) &&
+      <section>
+        <div className="wrapper">
+          <h2>{t("Server capacity")}</h2>
+          <p>
+            { usageMem >= 0 && <> {t("RAM")}: <strong>{usageMem} % </strong> {t("used")}.<br/></> }
+            { usageCPU >= 0 && <> {t("CPU")}: <strong>{usageCPU} % </strong> {t("used")}. </> }
+          </p>
+        </div>
+      </section>
+    }
     <section>
       <div className="wrapper">
         <h2>{t("Introduction to Lean 4")}</h2>
