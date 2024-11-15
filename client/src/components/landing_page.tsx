@@ -154,7 +154,7 @@ function LandingPage() {
         </div>
       </nav>
       <div id="main-title">
-        <h1>{t("Lean Game Server")}</h1>
+        <h1>{t("Lean Games @ NUS Math")}</h1>
         <p>
           <Trans>
             A repository of learning games for the
@@ -189,7 +189,6 @@ function LandingPage() {
           <Trans>
             <p>
               As this server runs lean on our university machines, it has a limited capacity.
-              Our current estimate is about 70 simultaneous games.
             </p>
           </Trans>
           <p>
